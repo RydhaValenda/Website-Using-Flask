@@ -6,7 +6,7 @@ def create_app():
     # "route" alamat url yang akan ditangani oleh app ini
     @app.route('/') #decorator(akan memastikan fungsi index akan bisa dipanggil oleh flask)
     def index():
-        return render_templates('index.html')
+        return render_template('index.html')
 
     @app.route('/abput')
     def about():
