@@ -1,8 +1,8 @@
 FROM python:2.7-slim
 MAINTAINER Rydha Valenda <ryval.study@gmail.com>
 
-RUN apt-get update && apt-get upgrade install -qq -y \
-    build --essential libpq-dev --no-install-recomends
+RUN apt-get update && apt-get install -qq -y \
+    build-essential libpq-dev --no-install-recommends
 
 ENV INSTALL_PATH /web_app
 RUN mkdir -p $INSTALL_PATH

@@ -17,6 +17,10 @@ def create_app():
     def about():
         return render_template('about.html', TITLE='Flask-01')
 
+    @app.route('/testdb')
+    def testdb():
+        return 'output table page'
+
     return app
 
 # # IP "0.0.0.0" bisa dites diinternal network
