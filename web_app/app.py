@@ -19,7 +19,21 @@ def create_app():
 
     @app.route('/testdb')
     def testdb():
-        return 'output table page'
+    # connect ke database table
+        import psycopg2
+
+    # important "host", here run not in "localhost"
+    # but, this use docker, host run according by name service
+        con = psycopg2.connect('dbname=flask01 user=devuser password=devpassword host=postgres')
+    # use object cursor , can be execute syntax database
+        cur = con.cursor()
+
+        cur.execute('select * from page;')
+
+    # cur.fetchone() produce data like the column
+        id, title = cur.fetchone()
+        con.close()
+        return 'output table page: {} - {}'. format(id, title)
 
     return app
 
