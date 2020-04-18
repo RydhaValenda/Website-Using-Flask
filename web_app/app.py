@@ -11,7 +11,23 @@ def create_app():
     # "route" alamat url yang akan ditangani oleh app ini
     @app.route('/') #decorator(akan memastikan fungsi index akan bisa dipanggil oleh flask)
     def index():
-        return render_template('index.html', TITLE='Flask-01')
+        # connect ke database table
+        import psycopg2
+
+        # important "host", here run not in "localhost"
+        # but, this use docker, host run according by name service
+        con = psycopg2.connect('dbname=flask01 user=devuser password=devpassword host=postgres')
+        # use object cursor , can be execute syntax database
+        cur = con.cursor()
+
+        cur.execute('select contents from page where id = 1')
+
+        # cur.fetchone() produce data like the column
+        contents = cur.fetchone() # restore tuple. (0,1,2)
+        con.close()
+
+        return render_template('index.html', TITLE='Flask-01', CONTENT=contents[0])
+
 
     @app.route('/about')
     def about():
