@@ -1,5 +1,7 @@
-import SQLAlchemy as SQLAlchemy
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, Integer, String
+
 
 def create_app():
     app = Flask(__name__)
@@ -11,6 +13,14 @@ def create_app():
 
     # create object SQLAlchemy and include instan the name of the istant flask object
     db = SQLAlchemy(app)
+
+    class Page(db.Model):
+        __tablename__ = 'page'
+        id = Column(Integer, primary_key=True)
+        contents = Column(String)
+
+    # synchronize tables that don't yet exist in database. even though there is already a class
+    db.create_all()
 
     # "route" alamat url yang akan ditangani oleh app ini
     @app.route('/') #decorator(akan memastikan fungsi index akan bisa dipanggil oleh flask)

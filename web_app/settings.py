@@ -2,7 +2,7 @@
 DEBUG = True
 
 # Connect SQLALCHEMY to database only setting.py
-SQLALCHEMY_DATABASE_URI = 'postgresql://devuser:devpassword@postgres:5432'
+SQLALCHEMY_DATABASE_URI = 'postgresql://devuser:devpassword@postgres:5432/flask01'
 
 # if turned on it will track changes in the table, but will reduce performance
-SQLALCHEMy_TRACK_MODIFICATIONS = False
+SQLALCHEMY_TRACK_MODIFICATIONS = False
