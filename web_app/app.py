@@ -1,3 +1,4 @@
+import SQLAlchemy as SQLAlchemy
 from flask import Flask, render_template
 
 def create_app():
@@ -7,6 +8,9 @@ def create_app():
 
     # file config diambil dari file mode py
     app.config.from_pyfile('settings.py')
+
+    # create object SQLAlchemy and include instan the name of the istant flask object
+    db = SQLAlchemy(app)
 
     # "route" alamat url yang akan ditangani oleh app ini
     @app.route('/') #decorator(akan memastikan fungsi index akan bisa dipanggil oleh flask)
