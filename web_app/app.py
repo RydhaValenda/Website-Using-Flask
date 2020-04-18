@@ -17,6 +17,12 @@ def create_app():
     class Page(db.Model):
         __tablename__ = 'page'
         id = Column(Integer, primary_key=True)
+        tag = Column(String)
+        contents = Column(String)
+
+    class Post(db.Model):
+        __tablename__ = 'post'
+        id = Column(Integer, primary_key=True)
         contents = Column(String)
 
     # synchronize tables that don't yet exist in database. even though there is already a class
@@ -25,22 +31,26 @@ def create_app():
     # "route" alamat url yang akan ditangani oleh app ini
     @app.route('/') #decorator(akan memastikan fungsi index akan bisa dipanggil oleh flask)
     def index():
-        # connect ke database table
-        import psycopg2
+        # connect to database use sqlalchemy
+        page = Page.query.filter_by(id=1).first()
 
-        # important "host", here run not in "localhost"
-        # but, this use docker, host run according by name service
-        con = psycopg2.connect('dbname=flask01 user=devuser password=devpassword host=postgres')
-        # use object cursor , can be execute syntax database
-        cur = con.cursor()
+        return render_template('index.html', TITLE='Flask-01', CONTENT=page.contents)
 
-        cur.execute('select contents from page where id = 1')
-
-        # cur.fetchone() produce data like the column
-        contents = cur.fetchone() # restore tuple. (0,1,2)
-        con.close()
-
-        return render_template('index.html', TITLE='Flask-01', CONTENT=contents[0])
+        # # connect ke database table
+        # import psycopg2
+        #
+        # # important "host", here run not in "localhost"
+        # # but, this use docker, host run according by name service
+        # con = psycopg2.connect('dbname=flask01 user=devuser password=devpassword host=postgres')
+        # # use object cursor , can be execute syntax database
+        # cur = con.cursor()
+        #
+        # cur.execute('select contents from page where id = 1')
+        #
+        # # cur.fetchone() produce data like the column
+        # contents = cur.fetchone() # restore tuple. (0,1,2)
+        # con.close()
+        # return render_template('index.html', TITLE='Flask-01', CONTENT=contents[0])
 
 
     @app.route('/about')
