@@ -8,6 +8,7 @@ class Page(db.Model):
     __tablename__ = 'page'
     id = Column(Integer, primary_key=True)
     title = Column(String)
+    tag = Column(String)
     contents = Column(String)
 
 
