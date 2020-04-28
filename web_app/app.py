@@ -17,8 +17,11 @@ def create_app():
     def index():
         # connect to database use sqlalchemy
         page = Page.query.filter_by(id=1).first()
+        contents = 'empty'
+        if page is not None:
+            contents = page.contents
 
-        return render_template('index.html', TITLE='Flask-01', CONTENT=page.contents)
+        return render_template('index.html', TITLE='Flask-01', CONTENT=contents)
 
         # # connect ke database table
         # import psycopg2
